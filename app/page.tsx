@@ -1,76 +1,71 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
+import Alert from "./common/alert";
 
 export default function Page() {
+  const [showAlert, setShowAlert] = useState(false);
+  const handleClick = () => {
+    setShowAlert(true);
+  };
+
+  const handleClose = () => {
+    setShowAlert(false);
+  };
+
   return (
-    <div className="flex h-screen bg-black">
-      <div className="w-screen h-screen flex flex-col justify-center items-center">
-        <svg
-          width="283"
-          height="64"
-          viewBox="0 0 283 64"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-36 h-36"
-          aria-label="Vercel logo"
-        >
-          <path
-            d="M141.04 16c-11.04 0-19 7.2-19 18s8.96 18 20 18c6.67 0 12.55-2.64 16.19-7.09l-7.65-4.42c-2.02 2.21-5.09 3.5-8.54 3.5-4.79 0-8.86-2.5-10.37-6.5h28.02c.22-1.12.35-2.28.35-3.5 0-10.79-7.96-17.99-19-17.99zm-9.46 14.5c1.25-3.99 4.67-6.5 9.45-6.5 4.79 0 8.21 2.51 9.45 6.5h-18.9zM248.72 16c-11.04 0-19 7.2-19 18s8.96 18 20 18c6.67 0 12.55-2.64 16.19-7.09l-7.65-4.42c-2.02 2.21-5.09 3.5-8.54 3.5-4.79 0-8.86-2.5-10.37-6.5h28.02c.22-1.12.35-2.28.35-3.5 0-10.79-7.96-17.99-19-17.99zm-9.45 14.5c1.25-3.99 4.67-6.5 9.45-6.5 4.79 0 8.21 2.51 9.45 6.5h-18.9zM200.24 34c0 6 3.92 10 10 10 4.12 0 7.21-1.87 8.8-4.92l7.68 4.43c-3.18 5.3-9.14 8.49-16.48 8.49-11.05 0-19-7.2-19-18s7.96-18 19-18c7.34 0 13.29 3.19 16.48 8.49l-7.68 4.43c-1.59-3.05-4.68-4.92-8.8-4.92-6.07 0-10 4-10 10zm82.48-29v46h-9V5h9zM36.95 0L73.9 64H0L36.95 0zm92.38 5l-27.71 48L73.91 5H84.3l17.32 30 17.32-30h10.39zm58.91 12v9.69c-1-.29-2.06-.49-3.2-.49-5.81 0-10 4-10 10V51h-9V17h9v9.2c0-5.08 5.91-9.2 13.2-9.2z"
-            fill="white"
-          />
-        </svg>
-        <div className="text-center max-w-screen-sm mb-10">
-          <h1 className="text-stone-200 font-bold text-2xl">
-            Next.js + Postgres Auth Starter
+    <div className="flex h-screen bg-white">
+      <div className="w-screen h-screen flex flex-col items-center mt-20">
+        <div className="text-center max-w-screen-sm mb-3 mt-20">
+          <h1 className="text-pretty text-4xl font-semibold tracking-tight">
+            Studio <span className="text-custom-pink">Sm</span>
+            <span className="text-custom-orange">ol</span>
+            <span className="text-custom-yellow">t</span>
+            <span className="text-custom-green">h</span>
+            <span className="text-custom-purple">ing</span>
           </h1>
-          <p className="text-stone-400 mt-5">
-            This is a{" "}
-            <a
-              href="https://nextjs.org/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-stone-400 underline hover:text-stone-200 transition-all"
-            >
-              Next.js
-            </a>{" "}
-            starter kit that uses{" "}
-            <a
-              href="https://next-auth.js.org/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-stone-400 underline hover:text-stone-200 transition-all"
-            >
-              NextAuth.js
-            </a>{" "}
-            for simple email + password login and a{" "}
-            <a
-              href="https://vercel.com/postgres"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-stone-400 underline hover:text-stone-200 transition-all"
-            >
-              Postgres
-            </a>{" "}
-            database to persist the data.
-          </p>
+          <div className="mt-5 w-full max-w-sm">
+            <div className="relative">
+              <input
+                className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md pl-3 pr-28 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                placeholder="Join my newsletter"
+              />
+              <button
+                onClick={handleClick}
+                className="absolute right-1 top-1 rounded bg-custom-pink p-1 border border-transparent text-center text-sm text-white transition-all shadow-sm hover:shadow focus:shadow-none hover:bg-custom-purple active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                type="button"
+              >
+                Subscribe
+              </button>
+            </div>
+          </div>
         </div>
-        <div className="flex space-x-3">
+        <div>
           <Link
             href="/protected"
-            className="text-stone-400 underline hover:text-stone-200 transition-all"
+            className="text-gray-800 hover:text-blue-600 mr-4"
           >
-            Protected Page
+            Comic
           </Link>
-          <p className="text-white">·</p>
-          <a
-            href="https://vercel.com/templates/next.js/prisma-postgres-auth-starter"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-stone-400 underline hover:text-stone-200 transition-all"
+          <Link
+            href="/protected"
+            className="text-gray-800 hover:text-blue-600 mr-4"
           >
-            Deploy to Vercel
-          </a>
+            Blog
+          </Link>
+          <Link
+            href="/protected"
+            className="text-gray-800 hover:text-blue-600 mr-4"
+          >
+            About
+          </Link>
+          <Link href="/protected" className="text-gray-800 hover:text-blue-600">
+            Login
+          </Link>
         </div>
       </div>
+      {showAlert && <Alert handleClose={handleClose} />}
     </div>
   );
 }
