@@ -49,7 +49,7 @@ function Popup({
             </div>
             <div className="p-4">
               <p className="text-gray-700 text-sm mb-2">
-                You're in! Thank you for subscribing!
+                hehe, thank you for subscribing!
               </p>
             </div>
           </div>

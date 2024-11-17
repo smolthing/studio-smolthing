@@ -27,8 +27,10 @@ export default function Page() {
   const handleClick = () => {
     if (isPopupOpen) {
       handleMinimize();
+    } else {
+      window.open("https://studiosmolthing.beehiiv.com/subscribe", "_blank");
+      setPopupOpen(true);
     }
-    setPopupOpen(true);
   };
 
   const handleClose = () => {
