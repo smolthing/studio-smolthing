@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import Popup from "./common/Popup";
 import HeartIcon from "./common/HeartIcon";
+import Dudu from "../assets/dudu.gif";
+import Image from "next/image";
 
 const NEWSLETTER_URL =
   "https://embeds.beehiiv.com/3dead21d-aa73-4ddb-9a24-7ef51d52eb34";
@@ -75,8 +77,15 @@ export default function Page() {
             <span className="text-custom-green">h</span>
             <span className="text-custom-purple">ing</span>
           </h1>
-          <div className="mt-5 w-full max-w-sm">
+          <div className="mt-10 w-full max-w-sm">
             <div className="relative">
+              <Image
+                src="/dudu.gif"
+                alt="dudu the cockatiel"
+                width={50}
+                height={50}
+                className="absolute -top-10 left-1/2 transform -translate-x-1/2 z-10"
+              />{" "}
               <input
                 className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md pl-3 pr-25 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                 placeholder="Join our newsletter"
