@@ -2,21 +2,42 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import Alert from "./common/alert";
+import Popup from "./common/Popup";
+import HeartIcon from "./common/HeartIcon";
 
 export default function Page() {
-  const [showAlert, setShowAlert] = useState(false);
+  const [isPopupOpen, setPopupOpen] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false);
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
+  const handleMinimize = () => {
+    setIsMinimized(!isMinimized);
+  };
+
+  const handleFullScreen = () => {
+    setIsFullScreen(!isFullScreen);
+  };
+
+  const handleEnterKey = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      setPopupOpen(true);
+    }
+  };
+
   const handleClick = () => {
-    setShowAlert(true);
+    if (isPopupOpen) {
+      handleMinimize();
+    }
+    setPopupOpen(true);
   };
 
   const handleClose = () => {
-    setShowAlert(false);
+    setPopupOpen(false);
   };
 
   return (
     <div className="flex h-screen bg-white">
-      <div className="w-screen h-screen flex flex-col items-center mt-20">
+      <div className="w-screen h-screen flex flex-col items-center pt-20">
         <div className="text-center max-w-screen-sm mb-3 mt-20">
           <h1 className="text-pretty text-4xl font-semibold tracking-tight">
             Studio <span className="text-custom-pink">Sm</span>
@@ -28,20 +49,23 @@ export default function Page() {
           <div className="mt-5 w-full max-w-sm">
             <div className="relative">
               <input
-                className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md pl-3 pr-28 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-                placeholder="Join my newsletter"
+                className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md pl-3 pr-25 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                placeholder="Type your email for newsletter"
+                onKeyDown={handleEnterKey}
               />
               <button
                 onClick={handleClick}
-                className="absolute right-1 top-1 rounded bg-custom-pink p-1 border border-transparent text-center text-sm text-white transition-all shadow-sm hover:shadow focus:shadow-none hover:bg-custom-purple active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                className="absolute right-1 top-1 rounded bg-custom-pink p-1 border border-transparent text-center text-xl text-white transition-all shadow-sm hover:shadow focus:shadow-none hover:bg-custom-purple active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                 type="button"
               >
-                Subscribe
+                <div className="h-5	w-5 text-white-100">
+                  <HeartIcon />
+                </div>
               </button>
             </div>
           </div>
         </div>
-        <div>
+        {/* <div>
           <Link
             href="/protected"
             className="text-gray-800 hover:text-blue-600 mr-4"
@@ -63,9 +87,17 @@ export default function Page() {
           <Link href="/protected" className="text-gray-800 hover:text-blue-600">
             Login
           </Link>
-        </div>
+        </div> */}
       </div>
-      {showAlert && <Alert handleClose={handleClose} />}
+      {isPopupOpen && (
+        <Popup
+          handleClose={handleClose}
+          isMinimized={isMinimized}
+          isFullScreen={isFullScreen}
+          handleMinimize={handleMinimize}
+          handleFullScreen={handleFullScreen}
+        />
+      )}
     </div>
   );
 }
