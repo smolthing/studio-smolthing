@@ -1,14 +1,42 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Popup from "./common/Popup";
 import HeartIcon from "./common/HeartIcon";
 
+const NEWSLETTER_URL =
+  "https://embeds.beehiiv.com/3dead21d-aa73-4ddb-9a24-7ef51d52eb34";
+const EVENT_KEY_ENTER = "Enter";
+const QUERY_PARAM_SUBSCRIBED = "subscribed";
+const QUERY_PARAM_EMAIL = "email";
+const DEFAULT_EMAIL = "you";
+
 export default function Page() {
+  const getDecodedEmail = (email: string | null) => {
+    try {
+      return email ? decodeURIComponent(email) : DEFAULT_EMAIL;
+    } catch (error) {
+      return DEFAULT_EMAIL;
+    }
+  };
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const isSubscribed = queryParams.get(QUERY_PARAM_SUBSCRIBED) === "true";
+
+    if (isSubscribed) {
+      const emailParam = queryParams.get(QUERY_PARAM_EMAIL);
+      const email = getDecodedEmail(emailParam);
+      setEmail(email);
+      setPopupOpen(true);
+    }
+  }, []);
+
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [email, setEmail] = useState("");
 
   const handleMinimize = () => {
     setIsMinimized(!isMinimized);
@@ -18,23 +46,22 @@ export default function Page() {
     setIsFullScreen(!isFullScreen);
   };
 
+  const handleClose = () => {
+    setPopupOpen(false);
+  };
+
   const handleEnterKey = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter") {
-      setPopupOpen(true);
+    if (event.key === EVENT_KEY_ENTER) {
+      handleRedirectToNewsletter();
     }
   };
 
   const handleClick = () => {
-    if (isPopupOpen) {
-      handleMinimize();
-    } else {
-      window.open("https://studiosmolthing.beehiiv.com/subscribe", "_blank");
-      setPopupOpen(true);
-    }
+    handleRedirectToNewsletter();
   };
 
-  const handleClose = () => {
-    setPopupOpen(false);
+  const handleRedirectToNewsletter = () => {
+    window.location.href = NEWSLETTER_URL;
   };
 
   return (
@@ -67,29 +94,26 @@ export default function Page() {
             </div>
           </div>
         </div>
-        {/* <div>
+        <div>
           <Link
-            href="/protected"
-            className="text-gray-800 hover:text-blue-600 mr-4"
-          >
-            Comic
-          </Link>
-          <Link
-            href="/protected"
+            href="https://dev.to/studiosmolthing"
             className="text-gray-800 hover:text-blue-600 mr-4"
           >
             Blog
           </Link>
           <Link
-            href="/protected"
-            className="text-gray-800 hover:text-blue-600 mr-4"
+            href="https://www.youtube.com/@studiosmolthing"
+            className="text-gray-800 hover:text-pink-600 mr-4"
           >
-            About
+            Youtube
           </Link>
-          <Link href="/protected" className="text-gray-800 hover:text-blue-600">
+          <Link
+            href="/protected"
+            className="text-gray-800 hover:text-green-600"
+          >
             Login
           </Link>
-        </div> */}
+        </div>
       </div>
       {isPopupOpen && (
         <Popup
@@ -98,6 +122,7 @@ export default function Page() {
           isFullScreen={isFullScreen}
           handleMinimize={handleMinimize}
           handleFullScreen={handleFullScreen}
+          email={email}
         />
       )}
     </div>

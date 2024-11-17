@@ -6,6 +6,7 @@ interface PopupProps {
   handleMinimize: () => void;
   isFullScreen: boolean;
   isMinimized: boolean;
+  email: string;
 }
 
 function Popup({
@@ -14,6 +15,7 @@ function Popup({
   handleMinimize,
   isFullScreen,
   isMinimized,
+  email,
 }: PopupProps) {
   return (
     <>
@@ -49,7 +51,8 @@ function Popup({
             </div>
             <div className="p-4">
               <p className="text-gray-700 text-sm mb-2">
-                hehe, thank you for subscribing!
+                hehe, thank <span className="font-bold">{email}</span> for
+                subscribing!
               </p>
             </div>
           </div>
