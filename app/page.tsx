@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import Popup from "./common/Popup";
 import HeartIcon from "./common/HeartIcon";
-import Dudu from "../assets/dudu.gif";
 import Image from "next/image";
 
 const NEWSLETTER_URL =
@@ -103,7 +102,7 @@ export default function Page() {
             </div>
           </div>
         </div>
-        <div>
+        <div className="font-mono">
           <Link
             href="https://dev.to/studiosmolthing"
             className="text-gray-800 hover:text-blue-600 mr-4"
@@ -116,10 +115,7 @@ export default function Page() {
           >
             Youtube
           </Link>
-          <Link
-            href="/protected"
-            className="text-gray-800 hover:text-green-600"
-          >
+          <Link href="/protected" className="text-white hover:text-green-600">
             Login
           </Link>
         </div>

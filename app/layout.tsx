@@ -1,6 +1,6 @@
 import "./globals.css";
 
-import { GeistSans } from "geist/font/sans";
+import GoogleFontKoh from "./common/font/GoogleFontKoh";
 
 let title = "Studio Smolthing";
 let description = "I make tech cute";
@@ -23,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={GeistSans.variable}>{children}</body>
+      <body className={GoogleFontKoh.variable}>{children}</body>
     </html>
   );
 }
