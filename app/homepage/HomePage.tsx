@@ -12,6 +12,9 @@ const QUERY_PARAM_SUBSCRIBED = "subscribed";
 const QUERY_PARAM_EMAIL = "email";
 const DEFAULT_EMAIL = "you";
 const SPECIAL_WORD = "anything";
+const SPECIAL_MESSAGE = "Noice ( ദ്ദി ˙ᗜ˙ )";
+const EMPTY_STRING = "";
+const TRUE = "true";
 
 export default function HomePage() {
   const getDecodedEmail = (email: string | null) => {
@@ -24,11 +27,12 @@ export default function HomePage() {
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
-    const isSubscribed = queryParams.get(QUERY_PARAM_SUBSCRIBED) === "true";
+    const isSubscribed = queryParams.get(QUERY_PARAM_SUBSCRIBED) === TRUE;
 
     if (isSubscribed) {
       const emailParam = queryParams.get(QUERY_PARAM_EMAIL);
       const email = getDecodedEmail(emailParam);
+      setMessage(EMPTY_STRING);
       setEmail(email);
       setPopupOpen(true);
     }
@@ -37,9 +41,9 @@ export default function HomePage() {
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
-  const [email, setEmail] = useState("");
-  const [inputValue, setInputValue] = useState("");
-  const [message, setMessage] = useState("");
+  const [email, setEmail] = useState(EMPTY_STRING);
+  const [inputValue, setInputValue] = useState(EMPTY_STRING);
+  const [message, setMessage] = useState(EMPTY_STRING);
   const handleMinimize = () => {
     setIsMinimized(!isMinimized);
   };
@@ -53,23 +57,20 @@ export default function HomePage() {
   };
 
   const handleInputEventKey = (event: React.KeyboardEvent) => {
-    const inputValue = event.target as HTMLInputElement;
-    setInputValue(inputValue.value);
-
     if (event.key === EVENT_KEY_ENTER) {
-      handleSpecialPopup(inputValue.value);
+      handleSpecialPopup();
     }
   };
 
-  const handleSpecialPopup = (value: string) => {
-    if (value === SPECIAL_WORD) {
-      setMessage("Noice ( ദ്ദി ˙ᗜ˙ )");
+  const handleSpecialPopup = () => {
+    if (inputValue.trim().toLocaleLowerCase() === SPECIAL_WORD) {
+      setMessage(SPECIAL_MESSAGE);
       setPopupOpen(true);
     }
   };
 
   const handleClick = () => {
-    handleSpecialPopup(inputValue);
+    handleSpecialPopup();
   };
 
   const Login = () => (
@@ -105,6 +106,7 @@ export default function HomePage() {
               <input
                 className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md pl-3 pr-25 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                 placeholder="Type anything"
+                onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={handleInputEventKey}
               />
               <button
