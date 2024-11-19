@@ -7,6 +7,7 @@ interface PopupProps {
   isFullScreen: boolean;
   isMinimized: boolean;
   email: string;
+  message?: string;
 }
 
 function Popup({
@@ -16,7 +17,14 @@ function Popup({
   isFullScreen,
   isMinimized,
   email,
+  message,
 }: PopupProps) {
+  const defaultMessage = () => (
+    <>
+      hehe, thank <span className="font-bold">{email}</span> for subscribing!
+    </>
+  );
+
   return (
     <>
       {!isMinimized && (
@@ -51,8 +59,7 @@ function Popup({
             </div>
             <div className="p-4">
               <p className="text-gray-700 text-sm mb-2">
-                hehe, thank <span className="font-bold">{email}</span> for
-                subscribing!
+                {message ? message : defaultMessage()}
               </p>
             </div>
           </div>

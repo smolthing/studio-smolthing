@@ -6,10 +6,7 @@ export function Form({
   children: React.ReactNode;
 }) {
   return (
-    <form
-      action={action}
-      className="flex flex-col space-y-2 bg-gray-50 sm:px-16 mt-6 mb-6"
-    >
+    <form action={action} className="flex flex-col space-y-2 bg-gray-50 m-6">
       <div>
         <input
           id="email"

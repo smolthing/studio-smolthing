@@ -7,12 +7,11 @@ import HeartIcon from "../common/icon/HeartIcon";
 import Image from "next/image";
 import ProfileIcon from "../common/icon/ProfileIcon";
 
-const NEWSLETTER_URL =
-  "https://embeds.beehiiv.com/3dead21d-aa73-4ddb-9a24-7ef51d52eb34";
 const EVENT_KEY_ENTER = "Enter";
 const QUERY_PARAM_SUBSCRIBED = "subscribed";
 const QUERY_PARAM_EMAIL = "email";
 const DEFAULT_EMAIL = "you";
+const SPECIAL_WORD = "anything";
 
 export default function HomePage() {
   const getDecodedEmail = (email: string | null) => {
@@ -39,7 +38,8 @@ export default function HomePage() {
   const [isMinimized, setIsMinimized] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [email, setEmail] = useState("");
-
+  const [inputValue, setInputValue] = useState("");
+  const [message, setMessage] = useState("");
   const handleMinimize = () => {
     setIsMinimized(!isMinimized);
   };
@@ -52,24 +52,30 @@ export default function HomePage() {
     setPopupOpen(false);
   };
 
-  const handleEnterKey = (event: React.KeyboardEvent) => {
+  const handleInputEventKey = (event: React.KeyboardEvent) => {
+    const inputValue = event.target as HTMLInputElement;
+    setInputValue(inputValue.value);
+
     if (event.key === EVENT_KEY_ENTER) {
-      handleRedirectToNewsletter();
+      handleSpecialPopup(inputValue.value);
+    }
+  };
+
+  const handleSpecialPopup = (value: string) => {
+    if (value === SPECIAL_WORD) {
+      setMessage("Noice ( ദ്ദി ˙ᗜ˙ )");
+      setPopupOpen(true);
     }
   };
 
   const handleClick = () => {
-    handleRedirectToNewsletter();
-  };
-
-  const handleRedirectToNewsletter = () => {
-    window.location.href = NEWSLETTER_URL;
+    handleSpecialPopup(inputValue);
   };
 
   const Login = () => (
     <Link
       href="/protected"
-      className="text-gray-800 hover:text-green-600 absolute top-4 right-4"
+      className="text-gray-800 hover:text-green-600 absolute bottom-4 right-4"
     >
       <ProfileIcon className="w-8 h-8 text-custom-pink hover:text-green-600 transform active:translate-y-1 transition" />
     </Link>
@@ -77,7 +83,7 @@ export default function HomePage() {
 
   return (
     <div className="flex h-screen bg-white">
-      {!isPopupOpen && <Login />}
+      <Login />
       <div className="w-screen h-screen flex flex-col items-center pt-20">
         <div className="text-center max-w-screen-sm mb-3 mt-20">
           <h1 className="text-pretty text-4xl font-semibold tracking-tight">
@@ -98,8 +104,8 @@ export default function HomePage() {
               />{" "}
               <input
                 className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md pl-3 pr-25 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-                placeholder="Join our newsletter"
-                onKeyDown={handleEnterKey}
+                placeholder="Type anything"
+                onKeyDown={handleInputEventKey}
               />
               <button
                 onClick={handleClick}
@@ -124,6 +130,12 @@ export default function HomePage() {
           >
             Youtube
           </Link>
+          <Link
+            href="https://embeds.beehiiv.com/3dead21d-aa73-4ddb-9a24-7ef51d52eb34"
+            className="text-gray-800 hover:text-custom-yellow"
+          >
+            Newsletter
+          </Link>
         </div>
       </div>
       {isPopupOpen && (
@@ -134,6 +146,7 @@ export default function HomePage() {
           handleMinimize={handleMinimize}
           handleFullScreen={handleFullScreen}
           email={email}
+          message={message}
         />
       )}
     </div>
