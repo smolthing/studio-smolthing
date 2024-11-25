@@ -11,10 +11,14 @@ const EVENT_KEY_ENTER = "Enter";
 const QUERY_PARAM_SUBSCRIBED = "subscribed";
 const QUERY_PARAM_EMAIL = "email";
 const DEFAULT_EMAIL = "you";
-const SPECIAL_WORD = "anything";
-const SPECIAL_MESSAGE = "Noice ( ദ്ദി ˙ᗜ˙ )";
 const EMPTY_STRING = "";
 const TRUE = "true";
+const MESSAGE_DUDU = ` 🐣: eh eh eh! no touching!`;
+const WORD_MAPPING: { [key: string]: string } = {
+  anything: "You got it! ( ദ്ദി ˙ᗜ˙ )",
+  hello: "Helloworld (づ๑•ᴗ•๑)づ♡",
+  test: "testing 1 2 3 ⸜(｡˃ ᵕ ˂)⸝♡",
+};
 
 export default function HomePage() {
   const getDecodedEmail = (email: string | null) => {
@@ -39,6 +43,7 @@ export default function HomePage() {
   }, []);
 
   const [isPopupOpen, setPopupOpen] = useState(false);
+  const [isPopupDuduOpen, setPopupDuduOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [email, setEmail] = useState(EMPTY_STRING);
@@ -52,8 +57,12 @@ export default function HomePage() {
     setIsFullScreen(!isFullScreen);
   };
 
-  const handleClose = () => {
+  const handlePopupClose = () => {
     setPopupOpen(false);
+  };
+
+  const handlePopupDuduClose = () => {
+    setPopupDuduOpen(false);
   };
 
   const handleInputEventKey = (event: React.KeyboardEvent) => {
@@ -63,8 +72,8 @@ export default function HomePage() {
   };
 
   const handleSpecialPopup = () => {
-    if (inputValue.trim().toLocaleLowerCase() === SPECIAL_WORD) {
-      setMessage(SPECIAL_MESSAGE);
+    if (WORD_MAPPING[inputValue.trim().toLocaleLowerCase()]) {
+      setMessage(WORD_MAPPING[inputValue.trim().toLocaleLowerCase()]);
       setPopupOpen(true);
     }
   };
@@ -83,11 +92,11 @@ export default function HomePage() {
   );
 
   return (
-    <div className="flex h-screen bg-white">
+    <div className="flex h-screen bg-gradient-to-b from-rose-200 via-blue-200 to-cyan-200">
       <Login />
       <div className="w-screen h-screen flex flex-col items-center pt-20">
         <div className="text-center max-w-screen-sm mb-3 mt-20">
-          <h1 className="text-pretty text-4xl font-semibold tracking-tight">
+          <h1 className="text-4xl">
             Studio <span className="text-custom-pink">Sm</span>
             <span className="text-custom-orange">ol</span>
             <span className="text-custom-yellow">t</span>
@@ -102,9 +111,10 @@ export default function HomePage() {
                 width={50}
                 height={50}
                 className="absolute -top-10 left-1/2 transform -translate-x-1/2 z-10"
+                onClick={() => setPopupDuduOpen(!isPopupDuduOpen)}
               />{" "}
               <input
-                className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md pl-3 pr-25 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-stone-600 rounded-md pl-3 pr-25 py-2 transition duration-300 ease focus:outline-none focus:border-white hover:border-white shadow-sm focus:shadow"
                 placeholder="Type anything"
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={handleInputEventKey}
@@ -142,14 +152,18 @@ export default function HomePage() {
       </div>
       {isPopupOpen && (
         <Popup
-          handleClose={handleClose}
+          handleClose={handlePopupClose}
           isMinimized={isMinimized}
           isFullScreen={isFullScreen}
           handleMinimize={handleMinimize}
           handleFullScreen={handleFullScreen}
           email={email}
           message={message}
+          showAllButtons
         />
+      )}
+      {isPopupDuduOpen && (
+        <Popup handleClose={handlePopupDuduClose} message={MESSAGE_DUDU} />
       )}
     </div>
   );

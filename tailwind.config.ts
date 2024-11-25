@@ -6,7 +6,7 @@ export default {
     extend: {
       colors: {
         "custom-pink": "#FF7396",
-        "custom-yellow": "#FCCB30",
+        "custom-yellow": "#e6c355",
         "custom-orange": "#FF8048",
         "custom-purple": "#C980DB",
         "custom-green": "#00BEAE",

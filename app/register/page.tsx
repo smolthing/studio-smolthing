@@ -23,8 +23,8 @@ export default function Login() {
   return (
     <>
       <LinkToHome />
-      <div className="flex h-screen w-screen items-center justify-center bg-gray-50">
-        <div className="z-10 w-3/4 max-w-md overflow-hidden rounded-2xl border border-gray-100 shadow-xl min-w-80">
+      <div className="flex h-screen w-screen items-center justify-center bg-gradient-to-r from-rose-100 to-teal-100">
+        <div className="z-10 w-3/4 max-w-md overflow-hidden rounded-2xl border border-gray-100 shadow-xl min-w-80 bg-white">
           <div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 bg-white px-4 py-4 text-center sm:px-16">
             <h3 className="text-xl font-semibold">Create a new account</h3>
           </div>

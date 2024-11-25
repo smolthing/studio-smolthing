@@ -2,28 +2,43 @@ import { useEffect, useState } from "react";
 
 interface PopupProps {
   handleClose: () => void;
-  handleFullScreen: () => void;
-  handleMinimize: () => void;
-  isFullScreen: boolean;
-  isMinimized: boolean;
-  email: string;
+  handleFullScreen?: () => void;
+  handleMinimize?: () => void;
+  isFullScreen?: boolean;
+  isMinimized?: boolean;
+  email?: string;
   message?: string;
+  showAllButtons?: boolean;
 }
 
 function Popup({
   handleClose,
-  handleFullScreen,
-  handleMinimize,
-  isFullScreen,
-  isMinimized,
-  email,
+  handleFullScreen = () => {},
+  handleMinimize = () => {},
+  isFullScreen = false,
+  isMinimized = false,
+  email = "",
   message,
+  showAllButtons = false,
 }: PopupProps) {
   const defaultMessage = () => (
     <>
       hehe, thank <span className="font-bold">{email}</span> for subscribing!
     </>
   );
+
+  const colors = [
+    "bg-custom-pink",
+    "bg-custom-blue",
+    "bg-custom-green",
+    "bg-custom-yellow",
+  ];
+  const [color, setColor] = useState("");
+
+  useEffect(() => {
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    setColor(randomColor);
+  }, []); // Runs only once when the component mounts
 
   return (
     <>
@@ -34,24 +49,31 @@ function Popup({
               isFullScreen ? "w-full h-full" : "w-[300px]"
             } transition-all`}
           >
-            <div className="flex items-center justify-end border-b-2 border-black px-2 bg-custom-pink text-lg">
-              <button
-                onClick={handleMinimize}
-                className="text-black hover:text-custom-yellow focus:outline-none mr-2"
-                title="Minimize"
-              >
-                -
-              </button>
-              <button
-                onClick={handleFullScreen}
-                className="text-black hover:text-custom-yellow focus:outline-none mr-2"
-                title="Maximize"
-              >
-                o
-              </button>
+            <div
+              className={`flex items-center justify-end border-b-2 border-black px-2 ${color} text-lg`}
+            >
+              {showAllButtons && (
+                <>
+                  <button
+                    onClick={handleMinimize}
+                    className="text-black hover:text-custom-yellow focus:outline-none mr-2"
+                    title="Minimize"
+                  >
+                    -
+                  </button>
+                  <button
+                    onClick={handleFullScreen}
+                    className="text-black hover:text-custom-yellow focus:outline-none mr-2"
+                    title="Maximize"
+                  >
+                    o
+                  </button>
+                </>
+              )}
+
               <button
                 onClick={handleClose}
-                className="text-black hover:text-custom-yellow focus:outline-none"
+                className="text-black hover:text-red-600 focus:outline-none"
                 title="Close"
               >
                 x
@@ -69,7 +91,7 @@ function Popup({
       {isMinimized && (
         <div
           onClick={() => handleMinimize()}
-          className="fixed bottom-5 left-5 bg-custom-pink text-white rounded-full p-2 cursor-pointer shadow-md"
+          className="fixed bottom-5 left-5 text-white rounded-full p-2 cursor-pointer shadow-md"
         >
           💛
         </div>
