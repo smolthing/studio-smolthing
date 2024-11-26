@@ -17,7 +17,7 @@ export default {
       },
       animation: {
         "expand-shrink": "expandShrink 1s infinite ease-in-out",
-        "bounce-drop": "bounceDrop 0.5s ease-out",
+        "bounce-drop": "bounceDrop 0.3s ease-out",
       },
       keyframes: {
         expandShrink: {
