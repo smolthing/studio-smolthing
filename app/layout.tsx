@@ -1,7 +1,7 @@
 import "./globals.css";
 
 import GoogleFontKoh from "./common/font/GoogleFontKoh";
-import { GoogleTagManager } from "@next/third-parties/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 let title = "Studio Smolthing";
 let description = "I make tech cute";
@@ -35,7 +35,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <GoogleTagManager gtmId="G-G9Y7DDDB6R" />
+      <GoogleAnalytics gaId="G-G9Y7DDDB6R" />
       <body className={GoogleFontKoh.variable}>{children}</body>
     </html>
   );
