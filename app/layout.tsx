@@ -4,6 +4,7 @@ import GoogleFontKoh from "./common/font/GoogleFontKoh";
 
 let title = "Studio Smolthing";
 let description = "I make tech cute";
+let image = "/dudu.gif";
 
 export const metadata = {
   title,
@@ -12,6 +13,16 @@ export const metadata = {
     card: "summary_large_image",
     title,
     description,
+    image,
+  },
+  openGraph: {
+    title,
+    description,
+    images: [
+      {
+        url: image,
+      },
+    ],
   },
   metadataBase: new URL("https://smolthing.vercel.app"),
 };
