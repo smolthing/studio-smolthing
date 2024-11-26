@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import Popup from "../common/form/Popup";
 import HeartIcon from "../common/icon/HeartIcon";
+import Star from "../common/icon/Star";
 import Image from "next/image";
 import ProfileIcon from "../common/icon/ProfileIcon";
 
@@ -94,34 +95,35 @@ export default function HomePage() {
   return (
     <div className="flex h-screen bg-gradient-to-b from-purple-200 via-pink-00 to-blue-200">
       <Login />
-      <div className="w-screen h-screen flex flex-col items-center pt-20">
+      <div className="w-screen h-screen flex flex-col items-center">
         <div className="text-center max-w-screen-sm mb-3 mt-20">
           <h1 className="text-4xl">
+            <Star className="relative right-2" />
             Studio <span className="text-custom-pink">Sm</span>
             <span className="text-custom-orange">ol</span>
             <span className="text-custom-blue">t</span>
             <span className="text-custom-green">h</span>
             <span className="text-custom-purple">ing</span>
           </h1>
-          <div className="mt-10 w-full max-w-sm">
+          <div className="mt-4 w-full max-w-sm">
+            <Image
+              src="/dudu.gif"
+              alt="dudu the cockatiel"
+              width={45}
+              height={45}
+              className="absolute z-10 animate-bounce-drop"
+              onClick={() => setPopupDuduOpen(!isPopupDuduOpen)}
+            />
             <div className="relative">
-              <Image
-                src="/dudu.gif"
-                alt="dudu the cockatiel"
-                width={50}
-                height={50}
-                className="absolute -top-10 left-1/2 transform -translate-x-1/2 z-10"
-                onClick={() => setPopupDuduOpen(!isPopupDuduOpen)}
-              />{" "}
               <input
-                className="w-full bg-transparent rounded placeholder:text-stone-500 text-slate-700 text-sm border border-black pl-3 pr-25 py-2 transition duration-300 ease focus:outline-none focus:border-white hover:border-white border-2 border-black shadow-custom-black"
+                className="w-full bg-transparent rounded placeholder:text-stone-500 text-slate-700 text-sm border border-black pl-12 pr-10 py-2 transition duration-300 ease focus:outline-none focus:border-white hover:border-white border-2 border-black shadow-custom-black"
                 placeholder="Type anything"
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={handleInputEventKey}
               />
               <button
                 onClick={handleClick}
-                className="absolute right-1 top-1 rounded bg-custom-pink p-1 border border-transparent text-center text-xl text-white transition-all shadow-sm hover:shadow focus:shadow-none hover:bg-custom-purple active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                className="absolute right-1 top-1/2 -translate-y-1/2 rounded bg-custom-pink p-1 text-center text-xl text-white transition-all shadow-sm hover:shadow focus:shadow-none hover:bg-custom-purple active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                 type="button"
               >
                 <HeartIcon className="h-5	w-5 text-white-100" />
@@ -129,7 +131,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        <div className="font-mono">
+        <div className="font-mono flex items-center justify-between ">
           <Link
             href="https://dev.to/studiosmolthing"
             className="text-gray-800 hover:text-blue-600 mr-4"
@@ -148,6 +150,7 @@ export default function HomePage() {
           >
             Newsletter
           </Link>
+          <Star className="relative left-4" size={4} />
         </div>
       </div>
       {isPopupOpen && (

@@ -2,11 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-  margin: 0;
-  padding: 0;
+html {
   height: 100%;
+}
+
+body {
+  min-height: 100%;
 }
 
 h1 {
@@ -19,4 +20,17 @@ h1 {
 
 a:hover {
   cursor: url("/chicken.png"), pointer;
+}
+
+.star {
+  clip-path: polygon(
+    50% 0%,
+    /* Top point */ 60% 40%,
+    /* Top-right indent */ 100% 50%,
+    /* Right point */ 60% 60%,
+    /* Bottom-right indent */ 50% 100%,
+    /* Bottom point */ 40% 60%,
+    /* Bottom-left indent */ 0% 50%,
+    /* Left point */ 40% 40% /* Top-left indent */
+  );
 }

@@ -15,6 +15,22 @@ export default {
       boxShadow: {
         "custom-black": "2px 2px 0 0 black",
       },
+      animation: {
+        "expand-shrink": "expandShrink 1s infinite ease-in-out",
+        "bounce-drop": "bounceDrop 0.5s ease-out",
+      },
+      keyframes: {
+        expandShrink: {
+          "0%, 100%": { transform: "scale(1)" },
+          "50%": { transform: "scale(2)" },
+        },
+        bounceDrop: {
+          "0%": { transform: "translateY(-100%)", opacity: "0" },
+          "50%": { transform: "translateY(0)", opacity: "1" },
+          "70%": { transform: "translateY(-10%)" },
+          "100%": { transform: "translateY(0)" },
+        },
+      },
     },
   },
   future: {
