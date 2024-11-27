@@ -93,9 +93,9 @@ export default function HomePage() {
   );
 
   return (
-    <div className="flex h-screen bg-gradient-to-b from-purple-200 via-pink-00 to-blue-200">
+    <div className="flex h-dvh bg-gradient-to-b from-purple-200 via-pink-00 to-blue-200">
       <Login />
-      <div className="w-screen h-screen flex flex-col items-center">
+      <div className="w-screen h-dvh flex flex-col items-center">
         <div className="text-center max-w-screen-sm mb-3 mt-20">
           <h1 className="text-4xl">
             <Star className="relative right-2" />
